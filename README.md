@@ -8,15 +8,20 @@ Proyecto de ciclo formativo (ASIR/ASIX), pensado como práctica integral de admi
 
 ```
 Omni-SOC/
-├── blue-team/            # Defensa: servicios y configuraciones del servidor
-│   ├── kea/              #   DHCP (kea-dhcp4.conf)
-│   ├── bind9/            #   DNS (zonas, opciones, INSTRUCCIONES.md)
-│   └── ufw/              #   Firewall del servidor (reglas)
-├── red-team/             # Ataque: herramientas y escenarios (Kali)
-├── monitorizacion/       # Wazuh, alertas y reglas de deteccion
-├── infra/                # IaC: despliegue reproducible
+├── blue-team/              # Defensa: servicios del servidor
+│   ├── apache2/            #   Web: configuración y www/ (index.html)
+│   ├── bind9/              #   DNS: zonas, opciones, INSTRUCCIONES.md
+│   ├── kea/                #   DHCP: kea-dhcp4.conf
+│   └── ufw/                #   Firewall del servidor (reglas)
+├── red-team/               # Ataque: herramientas y escenarios (Kali)
+├── monitorizacion/
+│   ├── suricata/           #   IDS: suricata.yaml, servicio, EveBox
+│   └── wazuh/              #   SIEM: reglas y decoders propios
+├── infra/                  # IaC: Vagrant + Ansible (despliegue reproducible)
 ├── scripts/
-│   └── subir.sh          # Consulta el estado de Git sin modificar archivos
+│   ├── subir.sh            # Copia las configs del servidor al repo y sube a GitHub
+│   ├── auditar.sh          # Auditoría del servidor (log privado, sin secretos)
+│   └── backup.sh           # Backup semanal (cron de root)
 └── docs/
     ├── propuesta.md
     └── img/diagrama-red.png
@@ -27,8 +32,8 @@ Omni-SOC/
 En el servidor, despues de tocar cualquier configuracion:
 
 ```bash
-cd ~/Omni-SOC
-./scripts/subir.sh --ver
+cd /home/Omni-SOC
+./scripts/subir.sh --ver opia las configs del sistema al repo y muestra los cambios, sin hacer commit ni push.
 ```
 
 El script `scripts/subir.sh --ver` muestra el estado de Git sin modificar archivos. La sincronizacion de configuraciones, la revision de secretos y la publicacion se realizan manualmente para evitar subir datos sensibles o cambios no deseados.
