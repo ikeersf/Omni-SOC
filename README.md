@@ -33,10 +33,10 @@ En el servidor, despues de tocar cualquier configuracion:
 
 ```bash
 cd /home/Omni-SOC
-./scripts/subir.sh --ver opia las configs del sistema al repo y muestra los cambios, sin hacer commit ni push.
+./scripts/subir.sh --ver
 ```
 
-El script `scripts/subir.sh --ver` muestra el estado de Git sin modificar archivos. La sincronizacion de configuraciones, la revision de secretos y la publicacion se realizan manualmente para evitar subir datos sensibles o cambios no deseados.
+`subir.sh --ver` copia las configs del sistema al repo y muestra los cambios, sin hacer commit ni push. Cuando esté revisado, se sube con `./scripts/subir.sh "area: que se ha cambiado"`.
 
 Convencion de mensajes: `area: que se ha cambiado` (por ejemplo `ufw: abierto puerto 1514`, `bind9: zona inversa`, `docs: diagrama actualizado`).
 
