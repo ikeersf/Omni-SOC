@@ -26,7 +26,6 @@ MAPA=(
   "/etc/apache2/ports.conf|blue-team/apache2/ports.conf"
   "/etc/apache2/conf-available/security.conf|blue-team/apache2/conf-available/security.conf"
   "/etc/apache2/sites-available/000-default.conf|blue-team/apache2/sites-available/000-default.conf"
-  "/etc/apache2/sites-available/default-ssl.conf|blue-team/apache2/sites-available/default-ssl.conf"
   "/var/www/html/index.html|blue-team/apache2/www/index.html"
   "/etc/suricata/suricata.yaml|monitorizacion/suricata/suricata.yaml"
 )
@@ -47,11 +46,6 @@ for par in "${MAPA[@]}"; do
   echo "   + copiado $src -> $dst"
 done
 
-# ---- Quitar secretos conocidos antes de subir -------------------------------
-f="blue-team/bind9/named.conf.local"
-if [[ -f "$f" ]]; then
-  sed -i -E 's/(secret ")[^"]+(")/\1n7lV700K4BJ3YgAcmBvRHTy9AD8sb9IDYivRoRFTNSA=\2/' "$f"
-fi
 # ---- Comprobacion de seguridad: si hay algo sospechoso, NO se sube ----------
 echo "==> Revisando secretos"
 if git ls-files -co --exclude-standard -z \
@@ -59,7 +53,7 @@ if git ls-files -co --exclude-standard -z \
    | xargs -0 -r grep -nIE \
        -e 'secret "[^"]*"' -e 'BEGIN [A-Z ]*PRIVATE KEY' \
        -e '(password|passwd|token)[[:space:]]*[=:][[:space:]]*[^[:space:]]+' \
-   | grep -v 'n7lV700K4BJ3YgAcmBvRHTy9AD8sb9IDYivRoRFTNSA='; then
+   ; then
   echo "!! Posible secreto en los ficheros de arriba. No se sube nada."
   exit 1
 fi
