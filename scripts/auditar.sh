@@ -65,7 +65,7 @@ sed -n '1,180p' README.md 2>/dev/null || true
 sed -n '1,180p' docs/propuesta.md 2>/dev/null || true
 
 seccion "CONFIGURACIONES VERSIONADAS: BIND9 Y KEA"
-for f in   blue-team/bind9/named.conf.local   blue-team/bind9/named.conf.options   blue-team/bind9/INSTRUCCIONES.md   blue-team/bind9/db.laboratorio.local   blue-team/bind9/db.1.168.192   blue-team/kea/kea-dhcp4.conf; do
+for f in   blue-team/bind9/named.conf.local   blue-team/bind9/named.conf.options   blue-team/bind9/INSTRUCCIONES.md   blue-team/bind9/db.omnisoc.local   blue-team/bind9/db.15.168.192   blue-team/kea/kea-dhcp4.conf; do
     archivo "$f"
 done
 
@@ -115,7 +115,7 @@ for f in   /etc/bind/named.conf   /etc/bind/named.conf.local   /etc/bind/named.c
     fi
 done
 
-for f in   /var/lib/bind/db.laboratorio.local   /var/lib/bind/db.1.168.192; do
+for f in   /var/lib/bind/db.omnisoc.local   /var/lib/bind/db.15.168.192; do
     if [[ -r "$f" ]]; then
         archivo "$f"
     else
@@ -124,8 +124,8 @@ for f in   /var/lib/bind/db.laboratorio.local   /var/lib/bind/db.1.168.192; do
 done
 
 if command -v named-checkzone >/dev/null 2>&1; then
-    comando "Zona directa activa"       sudo -n named-checkzone laboratorio.local       /var/lib/bind/db.laboratorio.local
-    comando "Zona inversa activa"       sudo -n named-checkzone 1.168.192.in-addr.arpa       /var/lib/bind/db.1.168.192
+    comando "Zona directa activa"       sudo -n named-checkzone omnisoc.local       /var/lib/bind/db.omnisoc.local
+    comando "Zona inversa activa"       sudo -n named-checkzone 15.168.192.in-addr.arpa       /var/lib/bind/db.15.168.192
 fi
 
 seccion "KEA DHCP: VALIDACION Y CONFIGURACION ACTIVA"
@@ -142,7 +142,7 @@ else
 fi
 
 seccion "COMPARACION CONFIGURACIONES VERSIONADAS Y ACTIVAS"
-for par in   "blue-team/bind9/named.conf.local|/etc/bind/named.conf.local"   "blue-team/bind9/named.conf.options|/etc/bind/named.conf.options"   "blue-team/bind9/db.laboratorio.local|/var/lib/bind/db.laboratorio.local"   "blue-team/bind9/db.1.168.192|/var/lib/bind/db.1.168.192"   "blue-team/kea/kea-dhcp4.conf|/etc/kea/kea-dhcp4.conf"   "blue-team/ufw/before.rules|/etc/ufw/before.rules"   "blue-team/ufw/before6.rules|/etc/ufw/before6.rules"   "blue-team/ufw/user.rules|/etc/ufw/user.rules"   "blue-team/ufw/user6.rules|/etc/ufw/user6.rules"; do
+for par in   "blue-team/bind9/named.conf.local|/etc/bind/named.conf.local"   "blue-team/bind9/named.conf.options|/etc/bind/named.conf.options"   "blue-team/bind9/db.omnisoc.local|/var/lib/bind/db.omnisoc.local"   "blue-team/bind9/db.15.168.192|/var/lib/bind/db.15.168.192"   "blue-team/kea/kea-dhcp4.conf|/etc/kea/kea-dhcp4.conf"   "blue-team/ufw/before.rules|/etc/ufw/before.rules"   "blue-team/ufw/before6.rules|/etc/ufw/before6.rules"   "blue-team/ufw/user.rules|/etc/ufw/user.rules"   "blue-team/ufw/user6.rules|/etc/ufw/user6.rules"; do
     repo_file="${par%%|*}"
     active_file="${par#*|}"
     printf '\n--- %s <-> %s ---\n' "$repo_file" "$active_file"

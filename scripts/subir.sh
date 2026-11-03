@@ -16,12 +16,19 @@ MAPA=(
   "/etc/kea/kea-dhcp4.conf|blue-team/kea/kea-dhcp4.conf"
   "/etc/bind/named.conf.options|blue-team/bind9/named.conf.options"
   "/etc/bind/named.conf.local|blue-team/bind9/named.conf.local"
-  "/var/lib/bind/db.laboratorio.local|blue-team/bind9/db.laboratorio.local"
-  "/var/lib/bind/db.1.168.192|blue-team/bind9/db.1.168.192"
+  "/var/lib/bind/db.omnisoc.local|blue-team/bind9/db.omnisoc.local"
+  "/var/lib/bind/db.15.168.192|blue-team/bind9/db.15.168.192"
   "/etc/ufw/before.rules|blue-team/ufw/before.rules"
   "/etc/ufw/before6.rules|blue-team/ufw/before6.rules"
   "/etc/ufw/user.rules|blue-team/ufw/user.rules"
   "/etc/ufw/user6.rules|blue-team/ufw/user6.rules"
+  "/etc/apache2/apache2.conf|blue-team/apache2/apache2.conf"
+  "/etc/apache2/ports.conf|blue-team/apache2/ports.conf"
+  "/etc/apache2/conf-available/security.conf|blue-team/apache2/conf-available/security.conf"
+  "/etc/apache2/sites-available/000-default.conf|blue-team/apache2/sites-available/000-default.conf"
+  "/etc/apache2/sites-available/default-ssl.conf|blue-team/apache2/sites-available/default-ssl.conf"
+  "/var/www/html/index.html|blue-team/apache2/www/index.html"
+  "/etc/suricata/suricata.yaml|monitorizacion/suricata/suricata.yaml"
 )
 
 SOLO_VER=0
