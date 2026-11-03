@@ -50,7 +50,7 @@ export interface Summary {
     timeline: { bucket: string; s0: number; s1: number; s2: number; s3: number; s4: number }[]
     top_rules: { source: string; rule_id: string; title: string; severity: Sev; count: number }[]
     top_src_ips: { ip: string; count: number; max_severity: Sev }[]
-    heatmap: { hosts: string[]; hours: string[]; cells: number[][] }
+    heatmap: { hosts: string[]; hours: string[]; cells: [hour: number, host: number, count: number][] }
   }
   dhcp: { subnet: string; start: string; end: string; size: number; used: number; pct: number | null }[]
   services: { service: string; checks: number; uptime_pct: number | null; avg_latency_ms: number | null }[]

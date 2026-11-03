@@ -90,14 +90,8 @@ export function HBar({ items, height = 260 }: { items: { label: string; value: n
 }
 
 export function Heatmap({ data }: { data: Summary['charts']['heatmap'] }) {
-  const points: [number, number, number][] = []
-  let max = 1
-  data.cells.forEach((row, y) =>
-    row.forEach((v, x) => {
-      points.push([x, y, v])
-      max = Math.max(max, v)
-    }),
-  )
+  const points = data.cells
+  const max = Math.max(1, ...points.map((c) => c[2]))
   const hours = data.hours.map((h) => new Date(h).toLocaleTimeString('es-ES', { hour: '2-digit' }) + 'h')
   return (
     <Chart

@@ -70,7 +70,7 @@ async def heatmap(s: AsyncSession, since: datetime) -> dict[str, Any]:
     rows = (
         await s.execute(
             select(Event.agent_name, b, func.count())
-            .where(Event.ts >= since, Event.agent_name.is_not(None), Event.severity >= Severity.LOW)
+            .where(Event.ts >= since, Event.agent_name.is_not(None), Event.severity >= Severity.MEDIUM)
             .group_by(Event.agent_name, b)
         )
     ).all()
